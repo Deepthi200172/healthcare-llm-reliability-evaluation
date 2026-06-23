@@ -1,0 +1,52 @@
+judge_model:
+  name: gpt-4o-mini
+  provider: openai
+  temperature: 0.0
+  max_tokens: 1024
+
+proprietary_models:
+  - name: gpt-4o-mini
+    provider: openai
+    model_type: proprietary
+    temperature: 0.0
+    max_tokens: 512
+
+  - name: claude-3-5-sonnet
+    provider: anthropic
+    model_type: proprietary
+    temperature: 0.0
+    max_tokens: 512
+
+  - name: gemini-1.5-flash
+    provider: google
+    model_type: proprietary
+    temperature: 0.0
+    max_tokens: 512
+
+open_source_models:
+  - name: llama-3.1-8b
+    provider: huggingface
+    model_type: open_source
+    model_id: meta-llama/Llama-3.1-8B-Instruct
+    temperature: 0.0
+    max_tokens: 512
+
+  - name: mistral-7b-instruct
+    provider: huggingface
+    model_type: open_source
+    model_id: mistralai/Mistral-7B-Instruct-v0.2
+    temperature: 0.0
+    max_tokens: 512
+
+  - name: qwen-2.5-7b-instruct
+    provider: huggingface
+    model_type: open_source
+    model_id: Qwen/Qwen2.5-7B-Instruct
+    temperature: 0.0
+    max_tokens: 512
+
+# Provider-level model ID mapping for proprietary models
+provider_model_ids:
+  gpt-4o-mini: gpt-4o-mini
+  claude-3-5-sonnet: claude-sonnet-4-6
+  gemini-1.5-flash: gemini-1.5-flash

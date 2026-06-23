@@ -1,0 +1,38 @@
+# ── Dataset ────────────────────────────────────────────────────────────────
+datasets>=2.18.0
+huggingface_hub>=0.22.0
+
+# ── Proprietary LLM APIs ───────────────────────────────────────────────────
+openai>=1.30.0
+anthropic>=0.28.0
+google-generativeai>=0.5.0
+
+# ── Open-source LLMs (local) ───────────────────────────────────────────────
+transformers>=4.40.0
+torch>=2.2.0
+accelerate>=0.29.0
+bitsandbytes>=0.43.0          # 4-bit / 8-bit quantisation for large models
+
+# ── RAG & Retrieval ────────────────────────────────────────────────────────
+chromadb>=0.5.0
+sentence-transformers>=2.7.0
+
+# ── Data & Config ──────────────────────────────────────────────────────────
+pandas>=2.0.0
+numpy>=1.26.0
+pyyaml>=6.0
+python-dotenv>=1.0.0
+
+# ── Robustness & Retry ─────────────────────────────────────────────────────
+tenacity>=8.3.0
+tqdm>=4.66.0
+
+# ── Notebooks ──────────────────────────────────────────────────────────────
+jupyterlab>=4.1.0
+ipykernel>=6.29.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# ── Testing ────────────────────────────────────────────────────────────────
+pytest>=8.1.0
+pytest-asyncio>=0.23.0

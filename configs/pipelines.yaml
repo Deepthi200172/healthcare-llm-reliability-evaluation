@@ -1,0 +1,31 @@
+pipelines:
+  - name: baseline
+    use_rag: false
+    use_agents: false
+    description: "Direct LLM inference with no retrieval"
+
+  - name: rag
+    use_rag: true
+    use_agents: false
+    description: "Retrieval-Augmented Generation using PubMedQA abstracts"
+    retrieval:
+      top_k: 5
+      chunk_size: 512
+      chunk_overlap: 64
+      embedding_model: sentence-transformers/all-MiniLM-L6-v2
+      vector_store: chroma
+      persist_dir: data/vector_store
+
+  - name: agentic_rag
+    use_rag: true
+    use_agents: true
+    description: "Agentic RAG with query analysis, retrieval, generation, and verification"
+    retrieval:
+      top_k: 5
+      chunk_size: 512
+      chunk_overlap: 64
+      embedding_model: sentence-transformers/all-MiniLM-L6-v2
+      vector_store: chroma
+      persist_dir: data/vector_store
+    agents:
+      max_verification_iterations: 2

@@ -1,0 +1,29 @@
+dataset_sample_size: 100
+runs_per_question_for_consistency: 5
+
+score_range:
+  min: 0.0
+  max: 1.0
+
+final_reliability_weights:
+  factuality: 0.30
+  hallucination_safety: 0.30
+  consistency: 0.20
+  robustness: 0.20
+
+perturbation_types:
+  - paraphrase
+  - typo_noise
+  - adversarial
+
+paths:
+  processed_data: data/processed/pubmedqa_sample_100.csv
+  perturbations: data/perturbations/pubmedqa_perturbations.csv
+  responses: outputs/responses/generated_responses.csv
+  consistency_responses: outputs/responses/consistency_responses.csv
+  robustness_responses: outputs/responses/robustness_responses.csv
+  factuality_scores: outputs/judge_scores/factuality_scores.csv
+  hallucination_scores: outputs/judge_scores/hallucination_scores.csv
+  consistency_scores: outputs/judge_scores/consistency_scores.csv
+  robustness_scores: outputs/judge_scores/robustness_scores.csv
+  final_results: outputs/final_results/model_pipeline_reliability_scores.csv

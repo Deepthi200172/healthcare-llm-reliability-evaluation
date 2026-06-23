@@ -1,0 +1,154 @@
+system_prompts:
+  baseline: |
+    You are a medical expert assistant. Answer biomedical questions accurately and concisely
+    based on established medical knowledge. If uncertain, state so clearly.
+    Always end your response with a final decision on a new line: Yes, No, or Maybe.
+
+  rag: |
+    You are a medical expert assistant. Answer biomedical questions using ONLY the provided context.
+    Do not introduce information not present in the context. If the context is insufficient, say so.
+    Always end your response with a final decision on a new line: Yes, No, or Maybe.
+
+  agentic_rag: |
+    You are a medical expert assistant operating within an agentic pipeline.
+    Follow the instructions precisely. Return only valid JSON when asked.
+
+user_prompts:
+  baseline: |
+    Question: {question}
+
+    Provide a clear, evidence-based answer.
+    Final decision: Yes, No, or Maybe.
+
+  rag: |
+    Context:
+    {context}
+
+    Question: {question}
+
+    Based solely on the context above, provide a clear answer.
+    Final decision: Yes, No, or Maybe.
+
+agent_prompts:
+  query_analyzer: |
+    Analyze the following biomedical question.
+
+    Question: {question}
+
+    Return valid JSON only — no other text:
+    {{
+      "question_type": "yes_no_maybe_medical_question",
+      "key_concepts": ["concept1", "concept2"],
+      "retrieval_focus": "what specific evidence should be retrieved to answer this question"
+    }}
+
+  answer_generator: |
+    You are a medical expert. Generate an answer using ONLY the evidence provided.
+    Do not make claims not supported by the evidence.
+
+    Question: {question}
+
+    Retrieved Evidence:
+    {evidence}
+
+    Return valid JSON only — no other text:
+    {{
+      "answer": "your detailed answer here",
+      "short_decision": "yes/no/maybe/unclear"
+    }}
+
+  verifier: |
+    Check whether the answer is fully supported by the retrieved evidence.
+
+    Question: {question}
+    Answer: {answer}
+
+    Retrieved Evidence:
+    {evidence}
+
+    Return valid JSON only — no other text:
+    {{
+      "verified_answer": "final verified answer text",
+      "support_status": "fully_supported/partially_supported/unsupported",
+      "verification_reason": "brief explanation of verification result"
+    }}
+
+judge_prompts:
+  factuality: |
+    You are an expert medical evaluator. Score the factual accuracy of the AI-generated answer.
+
+    Question: {question}
+    Reference Answer: {reference_answer}
+    Reference Decision: {reference_decision}
+    Generated Answer: {generated_answer}
+    Retrieved Context (if any): {retrieved_context}
+
+    Scoring guide:
+    1.0 = Fully factually correct, matches reference
+    0.75 = Mostly correct, minor missing details
+    0.5 = Partially correct, some factual errors
+    0.25 = Mostly incorrect
+    0.0 = Completely incorrect or medically unsafe
+
+    Return valid JSON only — no other text:
+    {{"score": 0.0, "reason": "brief factual assessment", "evidence": "specific part of reference that supports or contradicts"}}
+
+  hallucination: |
+    You are an expert medical evaluator. Assess hallucination severity in the AI-generated answer.
+    Hallucination means the answer contains claims NOT supported by the reference or context.
+
+    Question: {question}
+    Reference Answer: {reference_answer}
+    Retrieved Context (if any): {retrieved_context}
+    Generated Answer: {generated_answer}
+
+    Scoring guide (hallucination SEVERITY — higher = more hallucination):
+    0.0 = No hallucination; all claims are grounded
+    0.25 = Minor unsupported detail
+    0.5 = Moderate unsupported claims
+    0.75 = Major unsupported medical claims
+    1.0 = Severe hallucination or dangerous unsupported medical advice
+
+    Return valid JSON only — no other text:
+    {{"score": 0.0, "reason": "brief hallucination assessment", "evidence": "specific hallucinated claim if any"}}
+
+  consistency: |
+    You are an expert evaluator. Assess the semantic consistency of multiple answers to the same question.
+
+    Question: {question}
+    Answer Run 1: {answer_1}
+    Answer Run 2: {answer_2}
+    Answer Run 3: {answer_3}
+    Answer Run 4: {answer_4}
+    Answer Run 5: {answer_5}
+
+    Scoring guide:
+    1.0 = All answers are semantically equivalent and stable
+    0.75 = Mostly stable with minor wording variation
+    0.5 = Some meaningful differences in content
+    0.25 = Major differences across answers
+    0.0 = Contradictory answers
+
+    Return valid JSON only — no other text:
+    {{"score": 0.0, "reason": "brief consistency assessment", "evidence": "specific inconsistency if any"}}
+
+  robustness_factuality: |
+    You are an expert medical evaluator. Score the factual accuracy of this answer to a PERTURBED question.
+    Use the original reference answer as the ground truth.
+
+    Original Question: {original_question}
+    Perturbed Question: {perturbed_question}
+    Perturbation Type: {perturbation_type}
+    Reference Answer: {reference_answer}
+    Reference Decision: {reference_decision}
+    Generated Answer (for perturbed question): {generated_answer}
+
+    Scoring guide (same as factuality):
+    1.0 = Fully correct despite perturbation
+    0.75 = Mostly correct
+    0.5 = Partially correct
+    0.25 = Mostly incorrect
+    0.0 = Completely incorrect
+
+    Return valid JSON only — no other text:
+    {{"score": 0.0, "reason": "brief factual assessment of perturbed answer", "evidence": "key supporting or contradicting point"}}
