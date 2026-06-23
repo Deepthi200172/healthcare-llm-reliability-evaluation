@@ -1,0 +1,25 @@
+# Core ML
+numpy
+pandas
+scikit-learn
+matplotlib
+seaborn
+
+# LLM / NLP
+transformers
+torch
+datasets
+evaluate
+accelerate
+
+# Experiment tracking
+wandb
+
+# Notebooks
+jupyterlab
+ipykernel
+
+# Utilities
+tqdm
+python-dotenv
+pyyaml

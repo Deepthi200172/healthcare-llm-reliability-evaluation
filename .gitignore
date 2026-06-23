@@ -1,0 +1,49 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data (large files — commit only samples or metadata)
+data/raw/
+data/processed/
+*.csv
+*.parquet
+*.pkl
+*.h5
+*.hdf5
+
+# Model weights
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.safetensors
+
+# Secrets & env vars
+.env
+.env.*
+secrets.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Results & logs
+results/
+logs/
+*.log
+wandb/
+mlruns/
